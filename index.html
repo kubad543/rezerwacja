@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amore — Zarezerwuj idealną randkę</title>
+  <meta name="description" content="Zarezerwuj idealną randkę. Wyjątkowe chwile czekają.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <!-- ══════════════ MAIN ══════════════ -->
+  <main id="main">
+    <div class="stage">
+
+      <!-- TŁO — wspólne dla obu kroków -->
+      <div class="bg-layer" aria-hidden="true"></div>
+      <div class="blob blob-1" aria-hidden="true"></div>
+      <div class="blob blob-2" aria-hidden="true"></div>
+      <div class="blob blob-3" aria-hidden="true"></div>
+      <div class="hearts-layer" id="hearts-layer" aria-hidden="true"></div>
+
+      <!-- ── KROK 1: Powitanie ── -->
+      <div id="step-greeting" class="step active" role="main" aria-labelledby="greeting-title">
+        <div class="greeting-card">
+
+          <!-- Trzy serduszka -->
+          <div class="card-hearts" aria-hidden="true">
+            <span class="card-heart">
+              <svg width="28" height="26" viewBox="0 0 24 21" fill="#fda4af">
+                <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z"/>
+              </svg>
+            </span>
+            <span class="card-heart">
+              <svg width="36" height="33" viewBox="0 0 24 21" fill="#f43f5e">
+                <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z"/>
+              </svg>
+            </span>
+            <span class="card-heart">
+              <svg width="28" height="26" viewBox="0 0 24 21" fill="#fda4af">
+                <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z"/>
+              </svg>
+            </span>
+          </div>
+
+          <p class="greeting-eyebrow">Walentynki 2026</p>
+
+          <h1 class="greeting-title" id="greeting-title">
+            Hej! Czy jesteś gotowa na<br>
+            <em>idealną randkę?</em>
+          </h1>
+
+          <p class="greeting-sub">
+            Zarezerwuj wyjątkowy termin — tylko dla Ciebie.
+            Kilka kroków i wszystko gotowe.
+          </p>
+
+          <div class="btn-row">
+            <!-- TAK -->
+            <button class="btn-tak" id="btn-tak" type="button">
+              <svg width="18" height="17" viewBox="0 0 24 21" fill="currentColor" aria-hidden="true">
+                <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z"/>
+              </svg>
+              Tak, chętnie!
+            </button>
+
+            <!-- NIE — uciekający -->
+            <div class="nie-wrapper" aria-hidden="false">
+              <button class="btn-nie" id="btn-nie" type="button" aria-label="Nie, nie jestem zainteresowana">
+                <span class="nie-label" aria-hidden="true">Nie, dziękuję</span>
+                <span class="nie-heart" aria-hidden="true">
+                  <svg width="22" height="20" viewBox="0 0 24 21" fill="currentColor">
+                    <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z"/>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── KROK 1.5: Reakcja radości ── -->
+      <div id="step-reaction" class="step" role="main" aria-labelledby="reaction-title" aria-hidden="true">
+        <div class="reaction-card">
+          <div class="reaction-emojis" aria-hidden="true">
+            <span class="reaction-emoji">🥹</span>
+            <span class="reaction-emoji">🎉</span>
+            <span class="reaction-emoji">💖</span>
+          </div>
+
+          <h1 class="reaction-title" id="reaction-title">
+            Wow… naprawdę<br>się zgodziłaś?!
+          </h1>
+
+          <p class="reaction-sub">
+            Nie mogę uwierzyć! Jestem <em>mega szczęśliwy</em> —<br>
+            to będzie najlepsza randka ever!
+          </p>
+
+          <div class="reaction-hearts" aria-hidden="true">
+            <span>❤️</span><span>💕</span><span>💗</span><span>💓</span><span>💞</span>
+          </div>
+
+          <button class="btn-dalej" id="btn-dalej" type="button">
+            No to lecimy! &rarr;
+          </button>
+
+          <div class="reaction-sparkles-layer" id="reaction-sparkles" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- ── KROK 2: Placeholder rezerwacji ── -->
+      <div id="step-booking" class="step" role="main" aria-labelledby="booking-title" aria-hidden="true">
+        <div class="booking-card">
+
+          <!-- Header -->
+          <div class="booking-header">
+            <div class="booking-icon" aria-hidden="true">
+              <svg width="28" height="27" viewBox="0 0 24 21" fill="none">
+                <path d="M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z" stroke="#be185d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h1 class="booking-main-title" id="booking-title">Rezerwacja randki</h1>
+          </div>
+
+          <!-- Pasek postępu -->
+          <div class="form-progress" role="list" aria-label="Kroki formularza">
+            <div class="form-progress-step fp-active" id="fp-1" role="listitem">
+              <div class="fp-dot"><span class="fp-num">1</span></div>
+              <span class="fp-label">Data</span>
+            </div>
+            <div class="fp-line" id="fp-line-1"></div>
+            <div class="form-progress-step" id="fp-2" role="listitem">
+              <div class="fp-dot"><span class="fp-num">2</span></div>
+              <span class="fp-label">Styl</span>
+            </div>
+            <div class="fp-line" id="fp-line-2"></div>
+            <div class="form-progress-step" id="fp-3" role="listitem">
+              <div class="fp-dot"><span class="fp-num">3</span></div>
+              <span class="fp-label">Miasto</span>
+            </div>
+            <div class="fp-line" id="fp-line-3"></div>
+            <div class="form-progress-step" id="fp-4" role="listitem">
+              <div class="fp-dot"><span class="fp-num">4</span></div>
+              <span class="fp-label">Potwierdź</span>
+            </div>
+          </div>
+
+          <!-- Panel 1: Kalendarz -->
+          <div class="form-pane" id="fpane-1">
+            <h2 class="form-pane-title">Wybierz datę randki</h2>
+            <div class="calendar">
+              <div class="cal-header">
+                <button class="cal-nav-btn" id="cal-prev" aria-label="Poprzedni miesiąc" type="button">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <span class="cal-month-label" id="cal-month-label"></span>
+                <button class="cal-nav-btn" id="cal-next" aria-label="Następny miesiąc" type="button">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+              <div class="cal-weekdays" aria-hidden="true">
+                <span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>So</span><span>Nd</span>
+              </div>
+              <div class="cal-days" id="cal-days" role="grid" aria-label="Dni miesiąca"></div>
+            </div>
+            <div class="form-nav form-nav--right">
+              <button class="btn-form-next" id="btn-fp1-next" disabled type="button">
+                Dalej <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel 2: Styl -->
+          <div class="form-pane" id="fpane-2" hidden>
+            <h2 class="form-pane-title">Wybierz styl na randkę</h2>
+            <div class="outfit-grid" role="radiogroup" aria-label="Styl stroju">
+              <button class="outfit-card outfit-card--opera" type="button" role="radio" aria-checked="false" data-outfit="Elegancki">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-fill" d="M25 8h4l3 7 3-7h4l-2 14 11 34H16l11-34z"/>
+                  <path class="o-fill" d="M52 8l1.6 4.4L58 14l-4.400 1.600L52 20l-1.600-4.400L46 14l4.400-1.600z"/>
+                </svg>
+                <span class="outfit-name">Elegancki</span>
+                <span class="outfit-desc">Sukienka, koszula, marynarka</span>
+              </button>
+              <button class="outfit-card outfit-card--daily" type="button" role="radio" aria-checked="false" data-outfit="Codzienny">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-soft" d="M22 10 8 18l5 10 6-3v29h26V25l6 3 5-10-14-8c-2 4-18 4-20 0z"/>
+                  <path class="o-stroke" d="M22 10 8 18l5 10 6-3v29h26V25l6 3 5-10-14-8c-2 4-18 4-20 0z"/>
+                  <circle class="o-fill" cx="32" cy="38" r="5"/>
+                </svg>
+                <span class="outfit-name">Codzienny</span>
+                <span class="outfit-desc">Jeansy, ulubiona koszulka</span>
+              </button>
+              <button class="outfit-card outfit-card--sport" type="button" role="radio" aria-checked="false" data-outfit="Sportowy">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-soft" d="M6 40c0-6 4-8 8-8l6-12 8 6 6-4 8 8c10 2 16 6 16 12v4H6z"/>
+                  <path class="o-stroke" d="M6 40c0-6 4-8 8-8l6-12 8 6 6-4 8 8c10 2 16 6 16 12v4H6z"/>
+                  <rect class="o-fill" x="6" y="46" width="52" height="6" rx="3"/>
+                  <path class="o-stroke" d="M24 30l4 5M30 27l4 5"/>
+                </svg>
+                <span class="outfit-name">Sportowy</span>
+                <span class="outfit-desc">Dres, sneakersy, energia</span>
+              </button>
+              <button class="outfit-card outfit-card--mono" type="button" role="radio" aria-checked="false" data-outfit="Klasyczny">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-soft" d="M32 24 6 46h52z"/>
+                  <path class="o-stroke" d="M32 24 6 46h52zM32 24v-3a5 5 0 1 0-5-5"/>
+                  <circle class="o-fill" cx="32" cy="38" r="3"/>
+                </svg>
+                <span class="outfit-name">Klasyczny</span>
+                <span class="outfit-desc">Czerń i biel, pasuje do wszystkiego</span>
+              </button>
+            </div>
+            <div class="form-nav">
+              <button class="btn-form-back" id="btn-fp2-back" type="button">← Wstecz</button>
+              <button class="btn-form-next" id="btn-fp2-next" disabled type="button">Dalej <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+
+          <!-- Panel 3: Miejsce -->
+          <div class="form-pane" id="fpane-3" hidden>
+            <h2 class="form-pane-title">Wybierz miasto randki</h2>
+            <div class="outfit-grid" role="radiogroup" aria-label="Miasto">
+              <button class="outfit-card outfit-card--city-bydgoszcz" type="button" role="radio" aria-checked="false" data-place="Bydgoszcz">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-soft" d="M6 40c6-18 46-18 52 0z"/>
+                  <path class="o-stroke" d="M6 40c6-18 46-18 52 0M4 40h56M20 40v-8M32 40V24M44 40v-8"/>
+                  <path class="o-stroke" d="M6 48c6 4 10-4 16 0s10-4 16 0 10-4 16 0"/>
+                </svg>
+                <span class="outfit-name">Bydgoszcz</span>
+                <span class="outfit-desc">Wenecja nad Brdą</span>
+              </button>
+              <button class="outfit-card outfit-card--city-gdansk" type="button" role="radio" aria-checked="false" data-place="Gdańsk">
+                <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
+                  <path class="o-soft" d="M16 52V22h12v30z"/>
+                  <path class="o-stroke" d="M16 52V22l6-8 6 8v30M28 28h20l6 6v18M48 28v24M16 52h38"/>
+                  <path class="o-stroke" d="M6 58c6 4 10-4 16 0s10-4 16 0 10-4 16 0"/>
+                </svg>
+                <span class="outfit-name">Gdańsk</span>
+                <span class="outfit-desc">Morze, Żuraw i długi spacer</span>
+              </button>
+            </div>
+            <div class="form-nav">
+              <button class="btn-form-back" id="btn-fp3-back" type="button">← Wstecz</button>
+              <button class="btn-form-next" id="btn-fp3-next" disabled type="button">Dalej <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+
+          <!-- Panel 4: Potwierdzenie -->
+          <div class="form-pane" id="fpane-4" hidden>
+            <h2 class="form-pane-title">Potwierdź rezerwację</h2>
+            <div class="booking-summary">
+              <div class="summary-row">
+                <span class="summary-icon" aria-hidden="true">📅</span>
+                <div class="summary-info">
+                  <span class="summary-label">Data randki</span>
+                  <span class="summary-value" id="summary-date">—</span>
+                </div>
+              </div>
+              <div class="summary-row">
+                <span class="summary-icon" aria-hidden="true">✨</span>
+                <div class="summary-info">
+                  <span class="summary-label">Styl stroju</span>
+                  <span class="summary-value" id="summary-outfit">—</span>
+                </div>
+              </div>
+              <div class="summary-row">
+                <span class="summary-icon" aria-hidden="true">📍</span>
+                <div class="summary-info">
+                  <span class="summary-label">Miasto</span>
+                  <span class="summary-value" id="summary-place">—</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-confirm" id="btn-confirm" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Akceptuj i potwierdź
+            </button>
+            <div class="form-nav form-nav--center" style="margin-top:14px">
+              <button class="btn-form-back" id="btn-fp4-back" type="button">← Wstecz</button>
+            </div>
+          </div>
+
+          <!-- Panel 5: Bilet -->
+          <div class="form-pane" id="fpane-5" hidden>
+            <h2 class="form-pane-title">Wyślij bilet do potwierdzenia</h2>
+            <ol class="ticket-steps">
+              <li><strong>Zrób zrzut ekranu</strong> poniższego biletu (kliknij go, aby powiększyć).</li>
+              <li><strong>Wyślij zrzut partnerowi</strong> — możesz też skopiować gotową wiadomość.</li>
+              <li><strong>Czekaj na odpowiedź „TAK”.</strong> Rezerwacja jest ważna dopiero po potwierdzeniu przez partnera.</li>
+            </ol>
+            <article class="ticket" id="ticket" role="button" tabindex="0" aria-label="Bilet rezerwacji — kliknij, aby powiększyć">
+              <div class="ticket-main">
+                <div class="ticket-micro" data-micro aria-hidden="true"></div>
+                <div class="ticket-head">
+                  <span class="ticket-brand">AMORE</span>
+                  <span class="ticket-admit">ADMIT TWO</span>
+                </div>
+                <p class="ticket-kicker">BILET NA RANDKĘ · DATE TICKET · RESERVATION</p>
+                <p class="ticket-label">NUMER REZERWACJI</p>
+                <p class="ticket-number" id="ticket-number">—</p>
+                <dl class="ticket-grid">
+                  <div><dt>DATA</dt><dd id="ticket-date">—</dd></div>
+                  <div><dt>MIASTO</dt><dd id="ticket-place">—</dd></div>
+                  <div><dt>STRÓJ</dt><dd id="ticket-outfit">—</dd></div>
+                  <div><dt>STATUS</dt><dd>OCZEKUJE NA POTWIERDZENIE</dd></div>
+                </dl>
+                <p class="ticket-fine" aria-hidden="true">
+                  Bilet ważny na jedną randkę dla dwóch osób. Nie podlega zwrotowi, wymianie ani odwołaniu.
+                  Obowiązuje zakaz sprawdzania telefonu przy stole, zakaz niewłaściwych żartów oraz zakaz
+                  odmawiania deseru. Bilet należy okazać osobie, która go wystawiła. Zgubienie biletu
+                  nie zwalnia z obowiązku stawienia się. Przewidziane uściski, śmiech oraz długie rozmowy.
+                </p>
+                <div class="ticket-stamp" aria-hidden="true">DO POTWIERDZENIA</div>
+              </div>
+              <div class="ticket-stub">
+                <svg class="ticket-barcode" id="ticket-barcode" height="46" aria-hidden="true"></svg>
+                <div class="ticket-sign">
+                  <svg class="ticket-signature" viewBox="0 0 120 34" aria-hidden="true">
+                    <path d="M4 24c6-18 10-20 12-12s-6 18-2 14 8-16 12-12-2 14 4 10 6-10 10-6-2 8 4 6 10-4 14 0 12 2 18-2 12-2 16 2 18 0 26-4"/>
+                  </svg>
+                  <span class="ticket-sign-label">PODPIS · SIGNATURE</span>
+                </div>
+                <div class="ticket-micro" data-micro aria-hidden="true"></div>
+              </div>
+            </article>
+            
+            <div class="ticket-actions">
+              <button class="btn-form-back" id="btn-ticket-zoom" type="button">Powiększ bilet</button>
+              <button class="btn-form-next" id="btn-ticket-copy" type="button">Skopiuj do wysłania</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
