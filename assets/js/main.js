@@ -37,7 +37,8 @@ const stepGreeting = document.getElementById('step-greeting');
 const stepReaction = document.getElementById('step-reaction');
 const stepBooking  = document.getElementById('step-booking');
 const btnTak       = document.getElementById('btn-tak');
-const btnDalej     = document.getElementById('btn-dalej');
+const btnSkip      = document.getElementById('btn-skip');
+const btnRemind    = document.getElementById('btn-remind');
 
 const _HP = 'M12 20.703c-.392 0-.775-.14-1.073-.406C5.23 15.128 1 11.11 1 6.5 1 3.467 3.467 1 6.5 1c1.61 0 3.147.69 4.222 1.894L12 4.283l1.278-1.389A5.597 5.597 0 0 1 17.5 1C20.533 1 23 3.467 23 6.5c0 4.61-4.23 8.628-9.927 13.797A1.605 1.605 0 0 1 12 20.703z';
 const _HC = ['#f43f5e','#be185d','#fda4af','#fb7185','#e11d48','#fce7f3'];
@@ -207,13 +208,41 @@ function goBackToGreeting() {
   };
 }
 
+function resetAnimatedButton(btn) {
+  btn.getAnimations().forEach(a => a.cancel());
+  btn.style.transform = '';
+  btn.style.opacity   = '';
+  delete btn.dataset.animating;
+}
+
+function returnToReaction() {
+  resetAnimatedButton(btnSkip);
+  resetAnimatedButton(btnRemind);
+  leavingReaction = false;
+
+  const reactionCard = stepReaction.querySelector('.reaction-card');
+  reactionCard.getAnimations().forEach(a => a.cancel());
+  reactionCard.style.transform = '';
+  reactionCard.style.opacity   = '';
+  reactionCard.style.animation = '';
+
+  stepReaction.classList.add('active');
+  stepReaction.removeAttribute('aria-hidden');
+
+  reactionCard.animate([
+    { transform: 'scale(.94) translateY(24px)', opacity: 0 },
+    { transform: 'scale(1) translateY(0)',       opacity: 1 }
+  ], { duration: 440, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
+
+  startReactionSparkles();
+
+  const title = document.getElementById('reaction-title');
+  title.setAttribute('tabindex', '-1');
+  setTimeout(() => title.focus(), 450);
+}
+
 // Booking → Reaction
 function goBackToReaction() {
-  btnDalej.getAnimations().forEach(a => a.cancel());
-  btnDalej.style.transform = '';
-  btnDalej.style.opacity   = '';
-  delete btnDalej.dataset.animating;
-
   const bookingCard = stepBooking.querySelector('.booking-card');
   bookingCard.getAnimations().forEach(a => a.cancel());
 
@@ -227,31 +256,30 @@ function goBackToReaction() {
     bookingCard.getAnimations().forEach(a => a.cancel());
     bookingCard.style.animation = '';
 
-    const reactionCard = stepReaction.querySelector('.reaction-card');
-    reactionCard.getAnimations().forEach(a => a.cancel());
-    reactionCard.style.transform = '';
-    reactionCard.style.opacity   = '';
-    reactionCard.style.animation = '';
+    returnToReaction();
+  };
+}
 
-    stepReaction.classList.add('active');
-    stepReaction.removeAttribute('aria-hidden');
-
-    reactionCard.animate([
-      { transform: 'scale(.94) translateY(24px)', opacity: 0 },
-      { transform: 'scale(1) translateY(0)',       opacity: 1 }
-    ], { duration: 440, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
-
-    startReactionSparkles();
-
-    const title = document.getElementById('reaction-title');
-    title.setAttribute('tabindex', '-1');
-    setTimeout(() => title.focus(), 450);
+// Album → Reaction
+function goBackFromAlbum() {
+  clearAlbumTimers();
+  trackAlbum(albumScene.animate([
+    { transform: 'scale(1) translateY(0)',      opacity: 1 },
+    { transform: 'scale(.92) translateY(28px)', opacity: 0 }
+  ], { duration: 280, easing: 'ease-in', fill: 'forwards' })).onfinish = () => {
+    stepAlbum.classList.remove('active');
+    stepAlbum.setAttribute('aria-hidden', 'true');
+    resetAlbum();
+    returnToReaction();
   };
 }
 
 window.addEventListener('popstate', (e) => {
   if (e.state?.step === 'greeting') goBackToGreeting();
-  else if (e.state?.step === 'reaction') goBackToReaction();
+  else if (e.state?.step === 'reaction') {
+    if (stepAlbum.classList.contains('active')) goBackFromAlbum();
+    else goBackToReaction();
+  }
 });
 
 // ══════════════════════════════════════════
@@ -415,8 +443,7 @@ btnNie.addEventListener('click', (e) => {
 const sparklesLayer = document.getElementById('reaction-sparkles');
 let sparklesInterval = null;
 
-function spawnReactionSparkle() {
-  if (!sparklesLayer) return;
+function spawnSparkle(layer) {
   const el = document.createElement('span');
   const size = 5 + Math.random() * 9;
   const colors = ['#fda4af','#f43f5e','#be185d','#fce7f3','#fb7185','#fff'];
@@ -432,7 +459,7 @@ function spawnReactionSparkle() {
     pointerEvents: 'none',
     transform: 'scale(0) rotate(0deg)'
   });
-  sparklesLayer.appendChild(el);
+  layer.appendChild(el);
   const rot = (Math.random() - 0.5) * 360;
   el.animate([
     { opacity: 0, transform: `scale(0) rotate(0deg)` },
@@ -445,11 +472,11 @@ function spawnReactionSparkle() {
 function startReactionSparkles() {
   if (noMotion) return;
   stopReactionSparkles();
-  spawnReactionSparkle();
-  spawnReactionSparkle();
+  spawnSparkle(sparklesLayer);
+  spawnSparkle(sparklesLayer);
   sparklesInterval = setInterval(() => {
-    spawnReactionSparkle();
-    if (Math.random() > 0.6) spawnReactionSparkle();
+    spawnSparkle(sparklesLayer);
+    if (Math.random() > 0.6) spawnSparkle(sparklesLayer);
   }, 280);
 }
 
@@ -461,29 +488,29 @@ function stopReactionSparkles() {
 }
 
 // ══════════════════════════════════════════
-// PRZEJŚCIE DALEJ → KROK 2
+// PRZEJŚCIE REAKCJA → ALBUM / KROK 2
 // ══════════════════════════════════════════
-btnDalej.addEventListener('click', () => {
-  if (btnDalej.dataset.animating) return;
-  btnDalej.dataset.animating = 'true';
-  stopReactionSparkles();
+const STEP_CHANGE_DELAY_MS = 420;
+let leavingReaction = false;
 
-  const rect = btnDalej.getBoundingClientRect();
-  const cx = rect.left + rect.width  / 2;
-  const cy = rect.top  + rect.height / 2;
-
-  // Przycisk: pump → znikanie
-  btnDalej.animate([
+function popButton(btn) {
+  btn.animate([
     { transform: 'scale(1)',    boxShadow: '0 8px 28px rgba(190,24,93,.35)' },
     { transform: 'scale(1.16)', boxShadow: '0 18px 54px rgba(190,24,93,.75)', offset: .2 },
     { transform: 'scale(.88)',  opacity: .7, offset: .55 },
     { transform: 'scale(0)',    opacity: 0 }
   ], { duration: 440, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
 
-  // Mała eksplozja z przycisku
-  burstParticles(cx, cy, 14);
+  const rect = btn.getBoundingClientRect();
+  burstParticles(rect.left + rect.width / 2, rect.top + rect.height / 2, 14);
+}
 
-  // Karta reakcji: odlatuje w górę
+function leaveReaction(btn, onLeft) {
+  if (leavingReaction) return;
+  leavingReaction = true;
+  stopReactionSparkles();
+  popButton(btn);
+
   stepReaction.querySelector('.reaction-card').animate([
     { transform: 'scale(1) translateY(0)',        opacity: 1 },
     { transform: 'scale(1.06) translateY(-22px)', opacity: 0, offset: .8 },
@@ -493,27 +520,365 @@ btnDalej.addEventListener('click', () => {
   setTimeout(() => {
     stepReaction.classList.remove('active');
     stepReaction.setAttribute('aria-hidden', 'true');
+    onLeft();
+  }, STEP_CHANGE_DELAY_MS);
+}
 
-    const bookingCard = stepBooking.querySelector('.booking-card');
-    bookingCard.style.animation = 'none';
-    resetBookingForm();
-    stepBooking.classList.add('active');
-    stepBooking.removeAttribute('aria-hidden');
-    history.pushState({ step: 'booking' }, '', '#booking');
+// Leaving the album replaces its history entry, so "back" from booking returns straight to the reaction card
+function showBooking(replaceHistory) {
+  const bookingCard = stepBooking.querySelector('.booking-card');
+  bookingCard.style.animation = 'none';
+  resetBookingForm();
+  stepBooking.classList.add('active');
+  stepBooking.removeAttribute('aria-hidden');
+  if (replaceHistory) history.replaceState({ step: 'booking' }, '', '#booking');
+  else history.pushState({ step: 'booking' }, '', '#booking');
 
-    requestAnimationFrame(() => {
-      bookingCard.style.animation = '';
-      bookingCard.animate([
-        { transform: 'scale(.6) translateY(80px)',   opacity: 0 },
-        { transform: 'scale(1.05) translateY(-7px)', opacity: 1, offset: .78 },
-        { transform: 'scale(1) translateY(0)',        opacity: 1 }
-      ], { duration: 800, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'backwards' });
+  requestAnimationFrame(() => {
+    bookingCard.style.animation = '';
+    bookingCard.animate([
+      { transform: 'scale(.6) translateY(80px)',   opacity: 0 },
+      { transform: 'scale(1.05) translateY(-7px)', opacity: 1, offset: .78 },
+      { transform: 'scale(1) translateY(0)',        opacity: 1 }
+    ], { duration: 800, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'backwards' });
+  });
+
+  const title = document.getElementById('booking-title');
+  title.setAttribute('tabindex', '-1');
+  setTimeout(() => title.focus(), 850);
+}
+
+btnSkip.addEventListener('click', () => leaveReaction(btnSkip, () => showBooking(false)));
+
+btnRemind.addEventListener('click', () => leaveReaction(btnRemind, () => {
+  resetAlbum();
+  stepAlbum.classList.add('active');
+  stepAlbum.removeAttribute('aria-hidden');
+  history.pushState({ step: 'album' }, '', '#album');
+  playAlbumArrival();
+}));
+
+// ══════════════════════════════════════════
+// ALBUM „NASZA HISTORIA”
+// ══════════════════════════════════════════
+const stepAlbum      = document.getElementById('step-album');
+const albumScene     = document.getElementById('album-scene');
+const albumFloat     = document.getElementById('album-float');
+const albumBook      = document.getElementById('album-book');
+const albumLeaves    = [...albumBook.querySelectorAll('.album-leaf')];
+const albumBow       = document.getElementById('album-bow');
+const albumRibbonV   = document.getElementById('album-ribbon-v');
+const albumRibbonH   = document.getElementById('album-ribbon-h');
+const albumSparkles  = document.getElementById('album-sparkles');
+const albumHint      = document.getElementById('album-hint');
+const albumNav       = document.getElementById('album-nav');
+const albumPrev      = document.getElementById('album-prev');
+const albumNext      = document.getElementById('album-next');
+const albumCounter   = document.getElementById('album-counter');
+const albumFinal     = document.getElementById('album-final');
+const btnAlbumDone   = document.getElementById('btn-album-done');
+
+const FLIP_MS             = noMotion ? 1 : 900;
+const FLIP_EASING         = 'cubic-bezier(.645,.045,.355,1)';
+const SOFT_EASING         = 'cubic-bezier(.22,1,.36,1)';
+const UNTIE_MS            = noMotion ? 0 : 450;
+const AUTO_CLOSE_DELAY_MS = 2600;
+const SWIPE_THRESHOLD     = 40;
+const SHADE_MAX           = 0.5;
+const LEAF_COUNT          = albumLeaves.length;
+const BACK_COVER          = LEAF_COUNT - 1;
+const BOW_CENTER          = 'translate(-50%, -50%)';
+// Must match the single-page media query in style.css
+const singlePageQuery     = matchMedia('(orientation: portrait) and (max-width: 768px)');
+
+albumScene.style.setProperty('--flip-ms', FLIP_MS + 'ms');
+albumLeaves.forEach(leaf => leaf.querySelectorAll('.album-face').forEach(face => {
+  const shade = document.createElement('span');
+  shade.className = 'album-shade';
+  shade.setAttribute('aria-hidden', 'true');
+  face.appendChild(shade);
+}));
+
+let flipped = 0;
+// Single-page mode only: which half of the open spread is in view
+let side = 'right';
+let albumBusy = false;
+let albumTimers = [];
+let albumAnimations = [];
+// Bumped on reset so flips still awaiting completion know they belong to an abandoned run
+let albumRun = 0;
+
+function trackAlbum(anim) {
+  albumAnimations.push(anim);
+  return anim;
+}
+
+function albumLater(fn, ms) {
+  albumTimers.push(setTimeout(fn, ms));
+}
+
+function clearAlbumTimers() {
+  albumTimers.forEach(clearTimeout);
+  albumTimers = [];
+}
+
+function burstAlbumSparkles(count) {
+  if (noMotion) return;
+  for (let i = 0; i < count; i++) setTimeout(() => spawnSparkle(albumSparkles), i * 60);
+}
+
+// Flipped leaves pile up on the left (last flipped on top), the rest on the right (next to flip on top)
+function stackLeaves() {
+  albumLeaves.forEach((leaf, i) => {
+    leaf.style.zIndex = i < flipped ? i + 1 : LEAF_COUNT * 2 - i;
+  });
+}
+
+// Single-page mode reuses the closed-book offsets to pan the spread so only one half is in view
+function updateAlbumState() {
+  if (singlePageQuery.matches) {
+    const total = BACK_COVER * 2 - 1;
+    const page = side === 'left' ? flipped * 2 - 2 : flipped * 2 - 1;
+    albumBook.classList.toggle('is-closed-front', side === 'right');
+    albumBook.classList.toggle('is-closed-back', side === 'left');
+    albumCounter.textContent = `${Math.min(page, total)} / ${total}`;
+    albumPrev.disabled = page <= 1;
+    return;
+  }
+  albumBook.classList.toggle('is-closed-front', flipped === 0);
+  albumBook.classList.toggle('is-closed-back', flipped === LEAF_COUNT);
+  albumCounter.textContent = `${Math.min(flipped, BACK_COVER)} / ${BACK_COVER}`;
+  albumPrev.disabled = flipped <= 1;
+}
+
+// Faces turning visible get the class right away so their reveal plays as the page lands;
+// stale ones are cleared only after the flip, otherwise the turning page would blank out mid-air
+function markVisibleFaces(clearOthers) {
+  const single = singlePageQuery.matches;
+  const visible = [];
+  if (flipped > 0 && (!single || side === 'left')) visible.push(albumLeaves[flipped - 1].querySelector('.album-face--back'));
+  if (flipped < LEAF_COUNT && (!single || side === 'right')) visible.push(albumLeaves[flipped].querySelector('.album-face--front'));
+
+  visible.forEach(face => face.classList.add('is-visible'));
+  if (clearOthers) {
+    albumBook.querySelectorAll('.album-face.is-visible').forEach(face => {
+      if (!visible.includes(face)) face.classList.remove('is-visible');
     });
+  }
+}
 
-    const title = document.getElementById('booking-title');
-    title.setAttribute('tabindex', '-1');
-    setTimeout(() => title.focus(), 850);
-  }, 420);
+function resetAlbum() {
+  albumRun++;
+  clearAlbumTimers();
+  albumAnimations.forEach(a => a.cancel());
+  albumAnimations = [];
+  flipped = 0;
+  side = 'right';
+  albumBusy = false;
+
+  albumLeaves.forEach(leaf => { leaf.style.transform = ''; });
+  albumBook.querySelectorAll('.album-face.is-visible').forEach(face => face.classList.remove('is-visible'));
+  albumBook.classList.add('no-transition');
+  stackLeaves();
+  updateAlbumState();
+  void albumBook.offsetWidth;
+  albumBook.classList.remove('no-transition');
+
+  albumHint.hidden  = false;
+  albumNav.hidden   = true;
+  albumFinal.hidden = true;
+  resetAnimatedButton(btnAlbumDone);
+}
+
+function playAlbumArrival() {
+  trackAlbum(albumFloat.animate([
+    { transform: 'translateY(110vh) rotate(-16deg) scale(.7)', opacity: 0 },
+    { transform: 'translateY(-14px) rotate(2deg) scale(1.02)', opacity: 1, offset: .72 },
+    { transform: 'translateY(0) rotate(0deg) scale(1)',        opacity: 1 }
+  ], { duration: noMotion ? 1 : 1100, easing: SOFT_EASING, fill: 'backwards' }));
+
+  trackAlbum(albumHint.animate([
+    { opacity: 0, transform: 'translateY(16px)' },
+    { opacity: 1, transform: 'translateY(0)' }
+  ], { duration: 500, delay: noMotion ? 0 : 900, easing: SOFT_EASING, fill: 'backwards' }));
+
+  albumLater(() => {
+    burstAlbumSparkles(10);
+    albumHint.focus();
+  }, noMotion ? 0 : 1000);
+}
+
+function flipLeaf(index, forward) {
+  const leaf = albumLeaves[index];
+  const [frontShade, backShade] = leaf.querySelectorAll('.album-shade');
+  const [from, to] = forward ? [0, -180] : [-180, 0];
+  const timing = { duration: FLIP_MS, easing: FLIP_EASING };
+
+  leaf.style.zIndex = LEAF_COUNT * 3;
+  leaf.style.transform = `rotateY(${to}deg)`;
+  trackAlbum(frontShade.animate(forward ? [{ opacity: 0 }, { opacity: SHADE_MAX }] : [{ opacity: SHADE_MAX }, { opacity: 0 }], timing));
+  trackAlbum(backShade.animate(forward ? [{ opacity: SHADE_MAX }, { opacity: 0 }] : [{ opacity: 0 }, { opacity: SHADE_MAX }], timing));
+  return trackAlbum(leaf.animate([
+    { transform: `rotateY(${from}deg)` },
+    { transform: `rotateY(${to}deg)` }
+  ], timing)).finished;
+}
+
+function spreadMove(forward) {
+  const canTurn = forward ? flipped < LEAF_COUNT : flipped > 1 && flipped < LEAF_COUNT;
+  if (!canTurn) return null;
+  return { flip: forward ? flipped : flipped - 1, side };
+}
+
+// A move without `flip` only pans to the other half of the spread.
+// Opening lands on the right half straight away, skipping the blank inside of the cover.
+function singlePageMove(forward) {
+  if (flipped === LEAF_COUNT) return null;
+  if (forward) return side === 'left' ? { side: 'right' } : { flip: flipped, side: flipped === 0 ? 'right' : 'left' };
+  if (flipped <= 1) return null;
+  return side === 'right' ? { side: 'left' } : { flip: flipped - 1, side: 'right' };
+}
+
+async function turnPage(forward) {
+  if (albumBusy) return;
+  const single = singlePageQuery.matches;
+  const move = single ? singlePageMove(forward) : spreadMove(forward);
+  if (!move) return;
+
+  clearAlbumTimers();
+  albumBusy = true;
+  const run = albumRun;
+  const flips = 'flip' in move;
+  if (flips) flipped += forward ? 1 : -1;
+  side = move.side;
+  if (flipped === LEAF_COUNT) albumNav.hidden = true;
+  updateAlbumState();
+  markVisibleFaces(false);
+
+  try {
+    await (flips ? flipLeaf(move.flip, forward) : new Promise(resolve => albumLater(resolve, FLIP_MS)));
+  } catch {
+    return;
+  }
+  if (run !== albumRun) return;
+
+  stackLeaves();
+  markVisibleFaces(true);
+  albumBusy = false;
+
+  if (flipped === BACK_COVER && (!single || side === 'right')) albumLater(() => turnPage(true), AUTO_CLOSE_DELAY_MS);
+  else if (flipped === LEAF_COUNT) revealAlbumFinal();
+}
+
+singlePageQuery.addEventListener('change', () => {
+  side = flipped === LEAF_COUNT ? 'left' : 'right';
+  updateAlbumState();
+  markVisibleFaces(true);
+});
+
+function untieBow() {
+  const timing = { duration: 520, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' };
+  trackAlbum(albumBow.animate([
+    { transform: `${BOW_CENTER} scale(1) rotate(0deg)`,                    opacity: 1 },
+    { transform: `${BOW_CENTER} scale(1.25) rotate(-12deg)`,               opacity: 1, offset: .35 },
+    { transform: `${BOW_CENTER} translateY(40%) scale(.2) rotate(40deg)`,  opacity: 0 }
+  ], timing));
+  trackAlbum(albumRibbonH.animate([
+    { transform: 'scaleX(1)', opacity: 1 },
+    { transform: 'scaleX(0)', opacity: 0 }
+  ], { ...timing, delay: 120 }));
+  trackAlbum(albumRibbonV.animate([
+    { transform: 'scaleY(1)', opacity: 1 },
+    { transform: 'scaleY(0)', opacity: 0 }
+  ], { ...timing, delay: 120 }));
+}
+
+function openAlbum() {
+  if (albumBusy || flipped !== 0) return;
+  albumBusy = true;
+  albumHint.hidden = true;
+  untieBow();
+  burstAlbumSparkles(14);
+
+  albumLater(() => {
+    albumBusy = false;
+    albumNav.hidden = false;
+    albumNext.focus();
+    turnPage(true);
+  }, UNTIE_MS);
+}
+
+function revealAlbumFinal() {
+  albumFinal.hidden = false;
+  const bookRect = albumBook.getBoundingClientRect();
+  const finalRect = albumFinal.getBoundingClientRect();
+  const fromBehindBook = (bookRect.top + bookRect.height / 2) - (finalRect.top + finalRect.height / 2);
+
+  trackAlbum(albumFloat.animate([
+    { transform: 'translateY(0)' },
+    { transform: 'translateY(-12px)' }
+  ], { duration: 900, easing: SOFT_EASING, fill: 'forwards' }));
+
+  trackAlbum(albumFinal.animate([
+    { transform: `translateY(${fromBehindBook}px) scale(.6)`, opacity: 0 },
+    { transform: `translateY(${fromBehindBook}px) scale(.9)`, opacity: 1, offset: .2 },
+    { transform: 'translateY(6px) scale(1.04)',               opacity: 1, offset: .8 },
+    { transform: 'translateY(0) scale(1)',                    opacity: 1 }
+  ], { duration: noMotion ? 1 : 1000, easing: SOFT_EASING, fill: 'backwards' }));
+
+  burstAlbumSparkles(12);
+  albumLater(() => btnAlbumDone.focus(), noMotion ? 0 : 1000);
+}
+
+let swipeStartX = null;
+
+albumBook.addEventListener('pointerdown', (e) => { swipeStartX = e.clientX; });
+
+albumBook.addEventListener('pointerup', (e) => {
+  if (swipeStartX === null) return;
+  const dx = e.clientX - swipeStartX;
+  swipeStartX = null;
+
+  if (flipped === 0) {
+    openAlbum();
+    return;
+  }
+  if (Math.abs(dx) > SWIPE_THRESHOLD) {
+    turnPage(dx < 0);
+    return;
+  }
+  const rect = albumFloat.getBoundingClientRect();
+  turnPage(e.clientX > rect.left + rect.width / 2);
+});
+
+albumHint.addEventListener('click', openAlbum);
+albumPrev.addEventListener('click', () => turnPage(false));
+albumNext.addEventListener('click', () => turnPage(true));
+
+resetAlbum();
+
+document.addEventListener('keydown', (e) => {
+  if (!stepAlbum.classList.contains('active') || flipped === 0) return;
+  if (e.key === 'ArrowRight') turnPage(true);
+  else if (e.key === 'ArrowLeft') turnPage(false);
+});
+
+btnAlbumDone.addEventListener('click', () => {
+  if (btnAlbumDone.dataset.animating) return;
+  btnAlbumDone.dataset.animating = 'true';
+  popButton(btnAlbumDone);
+
+  trackAlbum(albumFloat.animate([
+    { transform: 'translateY(-12px) scale(1)',   opacity: 1 },
+    { transform: 'translateY(-60px) scale(.85)', opacity: 0 }
+  ], { duration: 480, easing: 'ease-in', fill: 'forwards' }));
+
+  setTimeout(() => {
+    stepAlbum.classList.remove('active');
+    stepAlbum.setAttribute('aria-hidden', 'true');
+    resetAlbum();
+    showBooking(true);
+  }, STEP_CHANGE_DELAY_MS);
 });
 
 // ══════════════════════════════════════════

@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=DM+Sans:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -106,11 +106,294 @@
             <span>❤️</span><span>💕</span><span>💗</span><span>💓</span><span>💞</span>
           </div>
 
-          <button class="btn-dalej" id="btn-dalej" type="button">
-            No to lecimy! &rarr;
-          </button>
+          <div class="reaction-question">
+            <p class="reaction-question-text">Czy pamiętasz, jak to wszystko się zaczęło?</p>
+            <div class="reaction-actions">
+              <button class="btn-dalej" id="btn-remind" type="button">
+                <span aria-hidden="true">📖</span> Przypomnij mi
+              </button>
+              <button class="btn-skip" id="btn-skip" type="button">
+                Tak, pamiętam — przejdź od razu do konkretów <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </div>
 
           <div class="reaction-sparkles-layer" id="reaction-sparkles" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- ── KROK 1.75: Album „Nasza historia” ── -->
+      <div id="step-album" class="step" role="main" aria-labelledby="album-heading" aria-hidden="true">
+        <div class="album-scene" id="album-scene">
+          <h2 class="sr-only" id="album-heading">Album — Nasza historia</h2>
+
+          <svg class="sprite" aria-hidden="true">
+            <symbol id="dwarf" viewBox="0 0 40 60">
+              <ellipse class="dw-boot" cx="13" cy="56" rx="5" ry="3"/>
+              <ellipse class="dw-boot" cx="27" cy="56" rx="5" ry="3"/>
+              <path class="dw-coat" d="M9 54l2-18q9-5 18 0l2 18z"/>
+              <rect class="dw-belt" x="10" y="45" width="20" height="3"/>
+              <path class="dw-coat" d="M28 38l8-7 2 3-7 8z"/>
+              <circle class="dw-skin" cx="37" cy="31" r="2.6"/>
+              <path class="dw-coat" d="M12 38l-6 9 3 2 6-8z"/>
+              <circle class="dw-skin" cx="7" cy="48" r="2.4"/>
+              <circle class="dw-skin" cx="20" cy="28" r="8"/>
+              <path class="dw-beard" d="M12 29q1 14 8 15 7-1 8-15-3 4-8 4-5 0-8-4z"/>
+              <circle class="dw-nose" cx="20" cy="30" r="2.2"/>
+              <circle class="dw-eye" cx="16.8" cy="27" r="1"/>
+              <circle class="dw-eye" cx="23.2" cy="27" r="1"/>
+              <path class="dw-hat" d="M10 24Q14 6 26 2q-2 8 4 22z"/>
+              <rect class="dw-trim" x="9.5" y="22" width="21" height="4" rx="2"/>
+              <circle class="dw-trim" cx="26" cy="3" r="2.5"/>
+            </symbol>
+          </svg>
+
+          <div class="album-float" id="album-float">
+            <div class="album-sparkles" id="album-sparkles" aria-hidden="true"></div>
+
+            <div class="album-book is-closed-front" id="album-book">
+
+              <div class="album-leaf">
+                <div class="album-face album-face--front album-leather">
+                  <span class="album-ribbon album-ribbon--v" id="album-ribbon-v" aria-hidden="true"></span>
+                  <span class="album-ribbon album-ribbon--h" id="album-ribbon-h" aria-hidden="true"></span>
+                  <svg class="album-bow" id="album-bow" viewBox="0 0 120 92" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="bow-satin" x1="0" y1="0" x2="1" y2="1">
+                        <stop class="bow-stop-light" offset="0"/>
+                        <stop class="bow-stop-mid" offset=".5"/>
+                        <stop class="bow-stop-dark" offset="1"/>
+                      </linearGradient>
+                    </defs>
+                    <path class="bow-satin" d="M56 44 40 88l10-5 6 8 6-45zM64 44l16 44-10-5-6 8-6-45z"/>
+                    <path class="bow-satin" d="M60 41C40 8 4 10 9 36c4 20 36 17 51 5zM60 41c20-33 56-31 51-5-4 20-36 17-51 5z"/>
+                    <path class="bow-fold" d="M60 41C46 22 22 22 21 34c3 10 25 11 39 7zM60 41c14-19 38-19 39-7-3 10-25 11-39 7z"/>
+                    <ellipse class="bow-satin" cx="60" cy="41" rx="10" ry="9"/>
+                  </svg>
+                </div>
+                <div class="album-face album-face--back album-leather album-leather--plain"></div>
+              </div>
+
+              <!-- To paste a real photo, replace .photo-placeholder with <img src="assets/images/..." alt="..."> -->
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page">
+                  <p class="album-eyebrow">Nasza historia · rozdział pierwszy</p>
+                  <p class="album-title-text">Poznanie<br>się</p>
+                  <span class="album-divider" aria-hidden="true">♥</span>
+                  <p class="album-title-sub">czyli jak to wszystko się zaczęło</p>
+                  <span class="dwarf dwarf--peek" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">🏮</span></span>
+                </div>
+                <div class="album-face album-face--back album-page album-page--her">
+                  <span class="album-side-label">Ona</span>
+                  <div class="phone phone--her">
+                    <div class="phone-screen">
+                      <div class="phone-bar"><span class="phone-avatar" aria-hidden="true">💙</span> Nieznajomy</div>
+                      <div class="phone-notif reveal d3">💌 Nowa wiadomość</div>
+                      <p class="msg msg--in reveal d4">Hej! 😊</p>
+                      <p class="msg msg--in reveal d5">Chcesz zagrać w grę?</p>
+                      <p class="msg msg--in reveal d6">Przygotowałem dla Ciebie specjalną wersję Codenames:</p>
+                    </div>
+                  </div>
+                  <p class="album-caption">Wszystko zaczęło się od…</p>
+                  <span class="dwarf dwarf--deliver" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">✉️</span></span>
+                </div>
+              </div>
+
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page album-page--his">
+                  <span class="album-side-label">On</span>
+                  <div class="phone phone--his">
+                    <div class="phone-screen">
+                      <div class="phone-bar"><span class="phone-avatar" aria-hidden="true">💗</span> Ona</div>
+                      <p class="msg msg--out reveal d1">Hej! 😊</p>
+                      <p class="msg msg--out reveal d2">Chcesz zagrać w grę?</p>
+                      <p class="msg msg--out reveal d3">Przygotowałem dla Ciebie specjalną wersję Codenames:</p>
+                      <p class="msg msg--typing reveal d4" aria-label="pisze…"><span></span><span></span><span></span></p>
+                    </div>
+                  </div>
+                  <p class="album-caption">…jednej wiadomości</p>
+                </div>
+                <div class="album-face album-face--back album-page album-page--her">
+                  <span class="album-side-label">Ona</span>
+                  <p class="album-caption">Teraz tylko ustalić termin…</p>
+                  <div class="mini-cal" aria-hidden="true">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5<i class="cal-cross reveal d2">✕</i></span><span>6<i class="cal-cross reveal d3">✕</i></span><span>7<i class="cal-cross reveal d3">✕</i></span>
+                    <span>8</span><span>9</span><span>10</span><span>11</span><span>12<i class="cal-cross reveal d4">✕</i></span><span>13<i class="cal-cross reveal d5">✕</i></span><span>14</span>
+                  </div>
+                  <p class="speech speech--her reveal d5">W ten weekend nie mogę 🙈</p>
+                </div>
+              </div>
+
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page album-page--his">
+                  <span class="album-side-label">On</span>
+                  <p class="album-caption">…łatwo powiedzieć 😅</p>
+                  <div class="mini-cal" aria-hidden="true">
+                    <span>1</span><span>2<i class="cal-cross reveal d1">✕</i></span><span>3<i class="cal-cross reveal d2">✕</i></span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    <span>8</span><span>9<i class="cal-cross reveal d3">✕</i></span><span>10</span><span>11<i class="cal-cross reveal d4">✕</i></span><span>12</span><span>13</span><span>14<i class="cal-cross reveal d4">✕</i></span>
+                  </div>
+                  <p class="speech speech--his reveal d6">To może środa? Albo czwartek…?</p>
+                  <span class="dwarf dwarf--b dwarf--pencil" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">✏️</span></span>
+                </div>
+                <div class="album-face album-face--back album-page album-page--her">
+                  <span class="album-side-label">Ona</span>
+                  <div class="beauty">
+                    <svg class="beauty-art" viewBox="0 0 120 90" role="img" aria-label="Śpiąca królewna z brązowymi włosami">
+                      <rect class="ba-bed" x="6" y="74" width="108" height="8" rx="3"/>
+                      <rect class="ba-bed" x="6" y="52" width="6" height="30" rx="2"/>
+                      <ellipse class="ba-pillow" cx="34" cy="60" rx="23" ry="10"/>
+                      <path class="ba-hair" d="M13 58q2-18 21-18t19 15q4 10-7 12-12 3-26-1-10-3-7-8z"/>
+                      <circle class="ba-skin" cx="34" cy="53" r="9"/>
+                      <path class="ba-hair" d="M25 51q2-9 10-9 8 1 8 8-5-5-11-4-4 1-7 5z"/>
+                      <path class="ba-crown" d="M28 43l2-5 2 3 2-5 2 5 2-3 2 5z"/>
+                      <path class="ba-line" d="M29 54q2 2 4 0M36 54q2 2 4 0M32 58q2 1 4 0"/>
+                      <circle class="ba-blush" cx="29" cy="57" r="1.8"/>
+                      <circle class="ba-blush" cx="40" cy="57" r="1.8"/>
+                      <path class="ba-blanket" d="M42 58q22-8 72-2v20q-40 4-76-2-4-8 4-16z"/>
+                      <path class="ba-blanket-fold" d="M44 60q20-6 70-1"/>
+                      <text class="zzz" x="56" y="40">z</text>
+                      <text class="zzz" x="64" y="30">z</text>
+                      <text class="zzz" x="73" y="19">Z</text>
+                    </svg>
+                    <span class="dwarf dwarf--running dwarf--run-top" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg></span>
+                    <span class="dwarf dwarf--c dwarf--running dwarf--run-bottom" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg></span>
+                    <span class="dwarf dwarf--d dwarf--side" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">🕯️</span></span>
+                  </div>
+                  <p class="album-caption">Królewna (chyba) zasnęła…<br><small>a krasnoludki jej pilnowały</small></p>
+                </div>
+              </div>
+
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page album-page--his">
+                  <span class="album-side-label">On</span>
+                  <div class="worry">
+                    <svg class="worry-art" viewBox="0 0 100 100" role="img" aria-label="Zmartwiony chłopak z telefonem">
+                      <path class="wa-shirt" d="M20 100q2-30 30-32 28 2 30 32z"/>
+                      <rect class="wa-skin" x="44" y="60" width="12" height="10"/>
+                      <circle class="wa-skin" cx="50" cy="44" r="20"/>
+                      <path class="wa-hair" d="M30 42q0-21 20-21t20 21q-4-10-12-8-8-6-16 0-8-2-12 8z"/>
+                      <path class="wa-line" d="M37 37l8-3M55 34l8 3"/>
+                      <circle class="wa-eye" cx="42" cy="43" r="2.2"/>
+                      <circle class="wa-eye" cx="58" cy="43" r="2.2"/>
+                      <path class="wa-line" d="M42 56q4-3 8 0t8 0"/>
+                      <path class="wa-sweat" d="M71 30q4 6 0 9-4-3 0-9z"/>
+                      <rect class="wa-phone" x="40" y="74" width="20" height="26" rx="3"/>
+                      <rect class="wa-screen" x="42.5" y="77" width="15" height="18" rx="1.5"/>
+                      <circle class="wa-skin" cx="39" cy="86" r="4.5"/>
+                      <circle class="wa-skin" cx="61" cy="86" r="4.5"/>
+                    </svg>
+                    <span class="worry-thought">Odpisze? Przyjedzie? 🥺</span>
+                  </div>
+                  <svg class="tally reveal d3" viewBox="0 0 96 24" aria-hidden="true">
+                    <path d="M3 3v18M8 3v18M13 3v18M18 3v18M0 19 21 5M35 3v18M40 3v18M45 3v18M50 3v18M32 19 53 5M67 3v18M72 3v18M77 3v18M82 3v18"/>
+                  </svg>
+                  <p class="album-caption">…a on się martwił.<br>Całe dwa tygodnie.</p>
+                </div>
+                <div class="album-face album-face--back album-page">
+                  <p class="album-eyebrow">Aż w końcu…</p>
+                  <figure class="album-photo album-photo--portrait">
+                    <div class="album-photo-img album-photo-img--gdansk">
+                      <img src="assets/images/gdansk.webp" width="450" height="576" alt="Rysunek: my dwoje pod czerwonym krzyżem w Gdańsku">
+                    </div>
+                    <figcaption>Pierwsze spotkanie — krótkie, w Gdańsku</figcaption>
+                  </figure>
+                  <span class="margin-note reveal d2" style="--x:9%; --y:7%; --r:-11deg; --w:30%; --s:0.95em">Góra Gradowa</span>
+                  <span class="margin-note reveal d3" style="--x:76%; --y:37%; --r:19deg">plecak wycieczkowy</span>
+                  <span class="margin-note reveal d4" style="--x:7%; --y:52%; --r:-78deg; --s:0.8em">jeansy</span>
+                  <span class="margin-note reveal d5" style="--x:56%; --y:86%; --r:7deg; --w:36%">czerwona parasolka</span>
+                  <span class="dwarf dwarf--d dwarf--pin" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">📍</span></span>
+                </div>
+              </div>
+
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page">
+                  <p class="album-eyebrow">A potem to najważniejsze</p>
+                  <figure class="album-photo album-photo--portrait">
+                    <div class="album-photo-img album-photo-img--bydgoszcz">
+                      <img src="assets/images/bydgoszcz.webp" width="450" height="576" alt="Rysunek: my dwoje nad rzeką przed operą w Bydgoszczy">
+                    </div>
+                    <span class="photo-stamp" aria-hidden="true">WAŻNE</span>
+                    <figcaption>Drugie spotkanie w Bydgoszczy</figcaption>
+                  </figure>
+                  <span class="margin-note reveal d2" style="--x:22%; --y:86%; --r:-6deg; --w:50%; --s:0.9em">ważna rozmowa nad rzeką</span>
+                  <span class="margin-note reveal d3" style="--x:74%; --y:9%; --r:24deg; --s:0.8em">puszka coli</span>
+                  <span class="margin-note reveal d4" style="--x:6%; --y:31%; --r:-21deg">biała koszulka</span>
+                  <span class="margin-note reveal d5" style="--x:76%; --y:50%; --r:13deg">co byś chciała raz w życiu zobaczyć?</span>
+                </div>
+                <div class="album-face album-face--back album-page">
+                  <p class="album-caption">Potem kolejne spotkania…</p>
+                  <div class="collage">
+                    <figure class="album-photo">
+                      <div class="album-photo-img album-photo-img--c1"><span class="photo-placeholder"><span class="photo-emoji" aria-hidden="true">☕</span></span></div>
+                    </figure>
+                    <figure class="album-photo">
+                      <div class="album-photo-img album-photo-img--c2"><span class="photo-placeholder"><span class="photo-emoji" aria-hidden="true">🎬</span></span></div>
+                    </figure>
+                    <figure class="album-photo">
+                      <div class="album-photo-img album-photo-img--c3"><span class="photo-placeholder"><span class="photo-emoji" aria-hidden="true">🌊</span></span></div>
+                    </figure>
+                  </div>
+                  <p class="album-caption">…i wszystko było po prostu fajnie <span aria-hidden="true">♥</span></p>
+                  <span class="dwarf dwarf--c dwarf--heart" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop">❤️</span></span>
+                </div>
+              </div>
+
+              <div class="album-leaf album-leaf--page">
+                <div class="album-face album-face--front album-page">
+                  <p class="album-eyebrow">Rozdział drugi</p>
+                  <p class="album-title-text album-title-text--sm">Nasz<br>wspólny<br>alfabet</p>
+                  <span class="album-divider" aria-hidden="true">♥</span>
+                  <p class="album-title-sub">tak się zaczął</p>
+                </div>
+                <div class="album-face album-face--back album-page">
+                  <p class="album-caption">Pierwsze litery już mamy…</p>
+                  <div class="letters" aria-label="A, B, C, D">
+                    <span class="letter reveal d1">A</span>
+                    <span class="letter reveal d2">B</span>
+                    <span class="letter reveal d3">C</span>
+                    <span class="letter reveal d4">D</span>
+                  </div>
+                  <span class="dwarf dwarf--b dwarf--block" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg><span class="dwarf-prop letter-block">E</span></span>
+                </div>
+              </div>
+
+              <div class="album-leaf">
+                <div class="album-face album-face--front album-leather">
+                  <div class="letters-rest" aria-hidden="true">
+                    <span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>Ł</span><span>M</span><span>N</span><span>O</span><span>P</span><span>R</span><span>S</span><span>T</span><span>U</span><span>W</span><span>Z</span><span>Ż</span>
+                  </div>
+                  <p class="album-end-title">…i jeszcze dużo<br>przed nami</p>
+                  <p class="album-end-sub">Kolejne litery dopiszemy razem <span aria-hidden="true">♥</span></p>
+                  <span class="dwarf dwarf--wave dwarf--wave-1" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg></span>
+                  <span class="dwarf dwarf--c dwarf--wave dwarf--wave-2" aria-hidden="true"><svg viewBox="0 0 40 60"><use href="#dwarf"/></svg></span>
+                </div>
+                <div class="album-face album-face--back album-leather">
+                  <span class="album-back-mark" aria-hidden="true">AMORE</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="album-controls">
+            <button class="album-hint" id="album-hint" type="button">
+              Rozwiąż kokardkę <span aria-hidden="true">🎀</span>
+            </button>
+            <div class="album-nav" id="album-nav" hidden>
+              <button class="album-nav-btn" id="album-prev" type="button" aria-label="Poprzednia strona">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="album-counter" id="album-counter" aria-live="polite"></span>
+              <button class="album-nav-btn" id="album-next" type="button" aria-label="Następna strona">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <div class="album-final" id="album-final" hidden>
+              <button class="btn-dalej" id="btn-album-done" type="button">
+                No dobra, przejdźmy do konkretów <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -186,7 +469,7 @@
                   <path class="o-fill" d="M52 8l1.6 4.4L58 14l-4.400 1.600L52 20l-1.600-4.400L46 14l4.400-1.600z"/>
                 </svg>
                 <span class="outfit-name">Elegancki</span>
-                <span class="outfit-desc">Sukienka, koszula, marynarka</span>
+                <span class="outfit-desc">Sukienka, eleganckie ubrania</span>
               </button>
               <button class="outfit-card outfit-card--daily" type="button" role="radio" aria-checked="false" data-outfit="Codzienny">
                 <svg class="outfit-art" viewBox="0 0 64 64" aria-hidden="true">
